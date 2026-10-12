@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONHO_MOMENT 공간</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="다크모드 전환">🌙</button>
+
+    <div class="card">
+        <div class="avatar">😊</div>
+        <h1>안녕하세요!</h1>
+        <p class="role">저는 함민경입니다</p>
+        <p class="intro">
+            운동과 새로운 것을 배우는 걸 좋아하고,<br>
+            요즘은 웹 개발을 공부하고 있어요.<br>
+            만나서 반가워요! 👋
+        </p>
+
+        <div class="tags">
+            <button class="tag" onclick="openGallery('claude')">#claude</button>
+            <button class="tag" onclick="openGallery('running')">#러닝</button>
+            <button class="tag" onclick="openGallery('hiking')">#등산</button>
+            <button class="tag" onclick="openGallery('travel')">#여행</button>
+        </div>
+
+        <div class="buttons">
+            <button class="btn btn-primary" onclick="sayHello()">인사하기</button>
+            <a class="btn btn-secondary" href="https://mail.google.com/mail/?view=cm&to=minkyoung41@gmail.com" target="_blank">연락하기</a>
+        </div>
+
+        <p class="message" id="message"></p>
+    </div>
+
+    <!-- 할 일 목록 -->
+    <div class="card todo-card">
+        <h2>📝 할 일 목록</h2>
+        <form id="todo-form" class="todo-form">
+            <input id="todo-input" type="text" placeholder="할 일을 입력하세요..." autocomplete="off" maxlength="100">
+            <button type="submit" class="btn btn-primary">추가</button>
+        </form>
+        <ul id="todo-list" class="todo-list"></ul>
+        <p id="todo-empty" class="todo-empty">할 일이 없어요 🎉</p>
+        <div class="todo-footer">남은 할 일: <span id="remaining-count">0</span>개</div>
+    </div>
+
+    <!-- 태그를 누르면 뜨는 사진 팝업 -->
+    <div class="modal" id="modal" onclick="closeGallery(event)">
+        <div class="modal-box">
+            <button class="close-btn" onclick="closeGallery()">&times;</button>
+            <h2 id="modal-title"></h2>
+            <div class="gallery" id="gallery"></div>
+        </div>
+    </div>
+
+    <!-- 사진 크게 보기 -->
+    <div class="viewer" id="viewer" onclick="this.classList.remove('open')">
+        <img id="viewer-img" alt="">
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
