@@ -313,6 +313,30 @@ h1 {
     padding: 0 20px;
 }
 
+.todo-filters {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.filter-btn {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 999px;
+    background: var(--tag-bg);
+    color: var(--accent);
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: var(--accent);
+    color: #fff;
+}
+
 .todo-list {
     list-style: none;
     display: flex;

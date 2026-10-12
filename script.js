@@ -60,8 +60,17 @@ const todoList = document.getElementById("todo-list");
 const todoEmpty = document.getElementById("todo-empty");
 const remainingCount = document.getElementById("remaining-count");
 const themeToggle = document.getElementById("theme-toggle");
+const todoFilters = document.getElementById("todo-filters");
 
 let todos = loadTodos();
+let currentFilter = "all"; // "all" | "active" | "done"
+
+// 필터별로 보여줄 항목과 비었을 때 안내 문구
+const FILTERS = {
+    all:    { match: function () { return true; },               empty: "할 일이 없어요 🎉" },
+    active: { match: function (todo) { return !todo.done; },     empty: "진행 중인 할 일이 없어요 👏" },
+    done:   { match: function (todo) { return todo.done; },      empty: "완료한 할 일이 없어요" },
+};
 
 // localStorage에서 목록 불러오기 (데이터가 손상됐으면 빈 목록)
 function loadTodos() {
@@ -85,7 +94,10 @@ function saveTodos() {
 function renderTodos() {
     todoList.innerHTML = "";
 
-    todos.forEach(function (todo) {
+    const filter = FILTERS[currentFilter];
+    const visibleTodos = todos.filter(filter.match);
+
+    visibleTodos.forEach(function (todo) {
         const li = document.createElement("li");
         li.className = "todo-item" + (todo.done ? " done" : "");
 
@@ -110,7 +122,8 @@ function renderTodos() {
         todoList.appendChild(li);
     });
 
-    todoEmpty.classList.toggle("hidden", todos.length > 0);
+    todoEmpty.textContent = filter.empty;
+    todoEmpty.classList.toggle("hidden", visibleTodos.length > 0);
     remainingCount.textContent = todos.filter(function (todo) { return !todo.done; }).length;
 }
 
@@ -142,6 +155,18 @@ todoForm.addEventListener("submit", function (event) {
     addTodo(todoInput.value);
     todoInput.value = "";
     todoInput.focus();
+});
+
+// 필터 버튼 클릭: 선택한 버튼만 active로 표시하고 목록 다시 그리기
+todoFilters.addEventListener("click", function (event) {
+    const button = event.target.closest(".filter-btn");
+    if (!button) return;
+
+    currentFilter = button.dataset.filter;
+    todoFilters.querySelectorAll(".filter-btn").forEach(function (btn) {
+        btn.classList.toggle("active", btn === button);
+    });
+    renderTodos();
 });
 
 // ===== 다크모드 =====

@@ -41,6 +41,11 @@
             <input id="todo-input" type="text" placeholder="할 일을 입력하세요..." autocomplete="off" maxlength="100">
             <button type="submit" class="btn btn-primary">추가</button>
         </form>
+        <div class="todo-filters" id="todo-filters">
+            <button type="button" class="filter-btn active" data-filter="all">전체</button>
+            <button type="button" class="filter-btn" data-filter="active">진행중</button>
+            <button type="button" class="filter-btn" data-filter="done">완료</button>
+        </div>
         <ul id="todo-list" class="todo-list"></ul>
         <p id="todo-empty" class="todo-empty">할 일이 없어요 🎉</p>
         <div class="todo-footer">남은 할 일: <span id="remaining-count">0</span>개</div>
